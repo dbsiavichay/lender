@@ -1,12 +1,10 @@
-import uuid
-
 from django.db import models
 
 from .enums import PaymentStatus
 
 
 class Payment(models.Model):
-    external_id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+    external_id = models.CharField(unique=True, max_length=64)
     total_amount = models.DecimalField(max_digits=20, decimal_places=10)
     paid_at = models.DateTimeField(auto_now_add=True)
     status = models.PositiveSmallIntegerField(

@@ -1,12 +1,10 @@
-import uuid
-
 from django.db import models
 
 from .enums import LoanStatus
 
 
 class Loan(models.Model):
-    external_id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+    external_id = models.CharField(unique=True, max_length=64)
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     contract_version = models.CharField(max_length=32, blank=True, null=True)
     outstanding = models.DecimalField(max_digits=12, decimal_places=2)
