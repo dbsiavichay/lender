@@ -48,6 +48,7 @@ LIBRARY_APPS = []
 LOCAL_APPS = [
     "apps.customers",
     "apps.loans",
+    "apps.payments",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LIBRARY_APPS + LOCAL_APPS
