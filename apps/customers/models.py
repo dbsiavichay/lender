@@ -1,4 +1,11 @@
+from decimal import Decimal
+from functools import cached_property
+
 from django.db import models
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
+
+from apps.loans.enums import LoanStatus
 
 from .enums import CustomerStatus
 
@@ -9,3 +16,15 @@ class Customer(models.Model):
     status = models.PositiveSmallIntegerField(
         choices=CustomerStatus.choices, default=CustomerStatus.ACTIVE
     )
+
+    @cached_property
+    def total_debt(self):
+        result = self.loans.filter(
+            status__in=[LoanStatus.PENDING, LoanStatus.ACTIVE]
+        ).aggregate(total=Coalesce(Sum("outstanding"), Decimal(0)))
+
+        return result.get("total")
+
+    @cached_property
+    def available_amount(self):
+        return self.score - self.total_debt

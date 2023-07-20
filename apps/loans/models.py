@@ -12,4 +12,6 @@ class Loan(models.Model):
     status = models.PositiveSmallIntegerField(
         choices=LoanStatus.choices, default=LoanStatus.PENDING
     )
-    customer = models.ForeignKey("customers.Customer", on_delete=models.PROTECT)
+    customer = models.ForeignKey(
+        "customers.Customer", on_delete=models.PROTECT, related_name="loans"
+    )
