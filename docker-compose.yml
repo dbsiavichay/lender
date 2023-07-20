@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: lender
+    container_name: api
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - lender_net
+  db:
+    image: postgres:14
+    container_name: db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    volumes:
+      - .data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lender_net
+
+networks:
+  lender_net:
