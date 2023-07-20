@@ -7,6 +7,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ["external_id", "score", "status"]
+        read_only_fields = ["status"]
 
 
 class CustomerBalanceSerializer(CustomerSerializer):
