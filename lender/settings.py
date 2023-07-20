@@ -43,7 +43,9 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-LIBRARY_APPS = []
+LIBRARY_APPS = [
+    "rest_framework",
+]
 
 LOCAL_APPS = [
     "apps.customers",
