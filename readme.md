@@ -3,8 +3,8 @@
 
 ## 1 Instalar docker y compose
 
-https://docs.docker.com/desktop/install/mac-install/
-https://docs.docker.com/compose/install/
+- https://docs.docker.com/desktop/install/mac-install/
+- https://docs.docker.com/compose/install/
 
 ## 2 Clonar el repositorio
 
