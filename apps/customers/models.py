@@ -17,6 +17,9 @@ class Customer(models.Model):
         choices=CustomerStatus.choices, default=CustomerStatus.ACTIVE
     )
 
+    def __str__(self):
+        return self.external_id
+
     @cached_property
     def total_debt(self):
         result = self.loans.filter(
