@@ -45,6 +45,7 @@ DJANGO_APPS = [
 
 LIBRARY_APPS = [
     "rest_framework",
+    "rest_framework_api_key",
 ]
 
 LOCAL_APPS = [
@@ -141,3 +142,9 @@ STATICFILES_FINDERS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework_api_key.permissions.HasAPIKey",
+    ]
+}

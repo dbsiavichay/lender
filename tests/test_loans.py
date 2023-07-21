@@ -1,6 +1,7 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+from rest_framework_api_key.models import APIKey
 
 from apps.customers.models import Customer
 from apps.loans.enums import LoanStatus
@@ -9,6 +10,8 @@ from apps.loans.models import Loan
 
 class CustomerTest(APITestCase):
     def setUp(self):
+        _, key = APIKey.objects.create_key(name="test-service")
+        self.api_key = f"Api-Key {key}"
         self.customer = Customer.objects.create(external_id="test_customer", score=5000)
 
     def test_create_loan(self):
@@ -20,7 +23,9 @@ class CustomerTest(APITestCase):
             "contract_version": "",
             "customer": self.customer.id,
         }
-        response = self.client.post(endpoint, data, format="json")
+        response = self.client.post(
+            endpoint, data, HTTP_AUTHORIZATION=self.api_key, format="json"
+        )
         loan = Loan.objects.filter(external_id="loan_test").first()
 
         self.assertTrue(isinstance(loan, Loan))
@@ -37,7 +42,9 @@ class CustomerTest(APITestCase):
             "contract_version": "",
             "customer": self.customer.id,
         }
-        response = self.client.post(endpoint, data, format="json")
+        response = self.client.post(
+            endpoint, data, HTTP_AUTHORIZATION=self.api_key, format="json"
+        )
         loan = Loan.objects.filter(external_id="loan_test").first()
 
         self.assertIsNone(loan)
@@ -53,7 +60,9 @@ class CustomerTest(APITestCase):
         )
 
         endpoint = reverse("loans-customer", args=[self.customer.external_id])
-        response = self.client.get(endpoint, format="json")
+        response = self.client.get(
+            endpoint, HTTP_AUTHORIZATION=self.api_key, format="json"
+        )
 
         data = {
             "external_id": loan.external_id,
@@ -63,6 +72,5 @@ class CustomerTest(APITestCase):
             "customer": loan.customer.id,
         }
 
-        print(dict(response.data[0]))
         self.assertEqual(dict(response.data[0]), data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
