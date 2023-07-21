@@ -16,4 +16,6 @@ class Payment(models.Model):
 class PaymentDetail(models.Model):
     amount = models.DecimalField(max_digits=20, decimal_places=10)
     loan = models.ForeignKey("loans.Loan", on_delete=models.PROTECT)
-    payment = models.ForeignKey("payments.Payment", on_delete=models.CASCADE)
+    payment = models.ForeignKey(
+        "payments.Payment", on_delete=models.CASCADE, related_name="details"
+    )
