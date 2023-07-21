@@ -46,6 +46,7 @@ DJANGO_APPS = [
 LIBRARY_APPS = [
     "rest_framework",
     "rest_framework_api_key",
+    "drf_yasg",
 ]
 
 LOCAL_APPS = [
@@ -146,5 +147,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework_api_key.permissions.HasAPIKey",
-    ]
+    ],
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }

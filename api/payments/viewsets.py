@@ -54,7 +54,7 @@ class PaymentCustomerList(generics.ListAPIView):
     serializer_class = PaymentCustomerSerializer
 
     def get_queryset(self):
-        customer_external_id = self.kwargs["pk"]
+        customer_external_id = self.kwargs.get("pk")
 
         return PaymentDetail.objects.filter(
             payment__customer__external_id=customer_external_id

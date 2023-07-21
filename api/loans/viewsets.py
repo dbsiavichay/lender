@@ -28,6 +28,6 @@ class LoanCustomerList(generics.ListAPIView):
     serializer_class = LoanSerializer
 
     def get_queryset(self):
-        customer_external_id = self.kwargs["pk"]
+        customer_external_id = self.kwargs.get("pk")
 
         return Loan.objects.filter(customer__external_id=customer_external_id)

@@ -28,5 +28,5 @@ runtests:
 shell:
 	docker-compose run --rm api python3 manage.py shell
 
-collectstatic:
-	docker-compose run --rm api python3 manage.py collectstatic
+apikey:
+	docker-compose run -T --rm api python3 manage.py shell < ./scripts/apikey.py
