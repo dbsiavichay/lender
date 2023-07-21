@@ -8,5 +8,9 @@ router.register(r"loans", LoanViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
-    re_path("^loans/customer/(?P<pk>.+)/$", LoanCustomerList.as_view()),
+    re_path(
+        "^loans/customer/(?P<pk>.+)/$",
+        LoanCustomerList.as_view(),
+        name="loans-customer",
+    ),
 ]

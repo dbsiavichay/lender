@@ -99,7 +99,7 @@ class PaymentTest(APITestCase):
         response = self.client.get(endpoint, format="json")
 
         data = {
-            "external_id": payment.payment.external_iod,
+            "external_id": payment.payment.external_id,
             "customer_external_id": payment.payment.customer.external_id,
             "loan_external_id": payment.loan.external_id,
             "payment_date": payment.payment.paid_at.strftime("%Y-%m-%d"),

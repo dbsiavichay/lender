@@ -11,6 +11,5 @@ class LoanSerializer(serializers.ModelSerializer):
             "amount",
             "outstanding",
             "contract_version",
-            "status",
             "customer",
         ]
