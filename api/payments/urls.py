@@ -8,5 +8,9 @@ router.register(r"payments", PaymentViewSet, basename="payments")
 
 urlpatterns = [
     path("", include(router.urls)),
-    re_path("^payments/customer/(?P<pk>.+)/$", PaymentCustomerList.as_view()),
+    re_path(
+        "^payments/customer/(?P<pk>.+)/$",
+        PaymentCustomerList.as_view(),
+        name="payments-customer",
+    ),
 ]

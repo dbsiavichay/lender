@@ -10,7 +10,7 @@ class Loan(models.Model):
     outstanding = models.DecimalField(max_digits=12, decimal_places=2)
     taken_at = models.DateTimeField(blank=True, null=True)
     status = models.PositiveSmallIntegerField(
-        choices=LoanStatus.choices, default=LoanStatus.PENDING
+        choices=LoanStatus.choices, default=LoanStatus.ACTIVE
     )
     customer = models.ForeignKey(
         "customers.Customer", on_delete=models.PROTECT, related_name="loans"
